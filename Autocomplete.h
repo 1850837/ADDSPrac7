@@ -4,14 +4,11 @@
 #include <vector>
 #include <string>
 
+#include "Node.h"
+
 class Autocomplete {
     private:
-    struct TrieNode {
-        bool isEndOfWord;
-        std::vector<TrieNode *> children;
-    };
-
-    TrieNode* root;
+    Node* root;
 
     public:
     Autocomplete();     //constructor
