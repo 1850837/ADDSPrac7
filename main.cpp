@@ -1,11 +1,14 @@
 #include <vector>
 #include <iostream>
+#include "Autocomplete.h"
 
 int main(){
 
-    char ch = 'a';
-    std::cout << ch << "\n";
-    std::cout << static_cast<int>(ch) << "\n";
+    Autocomplete a;
+
+    a.insertKey("word");
+
+    a.insertKey("wort");
 
     return 0;
 

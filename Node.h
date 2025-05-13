@@ -2,13 +2,16 @@
 #define NODE_H
 
 #include <vector>
+#include <unordered_map>
+
+//key value pair of "a":Node*()
 
 class Node {
     friend class Autocomplete;
     
-    private:
+    public:
     bool isEndOfWord;
-    std::vector<Node*> children[26];
+    std::unordered_map<char, Node*> children;
 
     public:
     Node();

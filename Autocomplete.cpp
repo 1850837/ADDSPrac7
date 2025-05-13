@@ -1,49 +1,54 @@
 #include "Autocomplete.h"
+#include <iostream>
 
 Autocomplete::Autocomplete(){
     root = new Node;
 }
 
+Node* Autocomplete::getRoot(){
+    return root;
+}
+
 void Autocomplete::insertKey(std::string word){
-    //ensuring it's all lowercase
+
+    Node* current = root;
+
     for (int i = 0; i < word.length(); i++){
-        if (word[i] > 96){
-            word[i] = word[i] - 32;
+
+        if (current->children.find(word[i]) == current->children.end()){   //while it can find the current letter in the map
+
+            current->children.insert({word[i], new Node()});
+            current = current->children[word[i]];
+
+        } 
+        
+        else {
+
+            current = current->children[word[i]];
+
         }
     }
 
-    //check if it's empty
-    bool empty = true;
-    for (int i = 0; i < 26; i++){
-        if (root->children[i].empty() == false){
-            empty = false;
-        }
-    }
+    current->isEndOfWord = true;
 
-    //case for it being empty
-    if (empty == true){
-        Node* current = root;
+    return;
 
-        for (int i = 0; i < word.length(); i++){
-
-            //checking for end of world
-            if (word.back() == word[i]){
-                current->isEndOfWord = true;
-            }
-
-            else {
-                int chara = static_cast<int>(word[i]) - 97; //a = 0, b = 1, ..., z = 25
-                current = current->children[chara];
-            }
-        }
-    } 
-    
-    //case for it not being empty
-    else {
-
-    }
 }
 
 std::vector<std::string> Autocomplete::getSuggestions(std::string partialWord){
+    Node* current = root;
+    
+    //traversing to the right branch
+    for (int i = 0; i < partialWord.length(); i++){
+        current = current->children.find(partialWord[i])->second;
+    }
 
+}
+
+std::string Autocomplete::searchPrefix(Node* node, std::string prefix, std::vector<std::string>* result){
+    if (node->isEndOfWord == true){
+        result->push_back(prefix);
+    }
+
+    for ();
 }
