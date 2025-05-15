@@ -15,17 +15,13 @@ void Autocomplete::insertKey(std::string word){
 
     for (int i = 0; i < word.length(); i++){
 
-        if (current->children.find(word[i]) == current->children.end()){   //while it can find the current letter in the map
-
+        if (current->children.find(word[i]) == current->children.end()){   //while it can't find the current letter in the map
             current->children.insert({word[i], new Node()});
             current = current->children[word[i]];
-
         } 
         
         else {
-
             current = current->children[word[i]];
-
         }
     }
 
@@ -37,18 +33,36 @@ void Autocomplete::insertKey(std::string word){
 
 std::vector<std::string> Autocomplete::getSuggestions(std::string partialWord){
     Node* current = root;
+    std::vector<std::string> result = {};
+    std::vector<std::string>* rStr = &result;
     
     //traversing to the right branch
     for (int i = 0; i < partialWord.length(); i++){
         current = current->children.find(partialWord[i])->second;
     }
 
+    searchPrefix(current, partialWord, rStr);
+
+    return result;
+
 }
 
-std::string Autocomplete::searchPrefix(Node* node, std::string prefix, std::vector<std::string>* result){
-    if (node->isEndOfWord == true){
+void Autocomplete::searchPrefix(Node* node, std::string prefix, std::vector<std::string>* result){
+    std::string alphabet = "abcdefghijklmnopqrstuvwxyz";
+
+    if (node->isEndOfWord){
         result->push_back(prefix);
     }
 
-    for ();
+    if (node->children.size() == 0){
+        return;
+    }
+    
+    for (char c : alphabet){
+        if (node->children.find(c) != node->children.end()){
+            searchPrefix(node->children[c], prefix + c, result);
+        }
+    }
+
+    return;
 }

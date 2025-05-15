@@ -6,9 +6,14 @@ int main(){
 
     Autocomplete a;
 
-    a.insertKey("word");
+    a.insertKey("ad");
 
-    a.insertKey("wort");
+    a.insertKey("advert");
+
+    a.insertKey("advise");
+
+
+    a.getSuggestions("a");
 
     return 0;
 

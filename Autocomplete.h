@@ -15,7 +15,7 @@ class Autocomplete {
     Node* getRoot();
     void insertKey(std::string word);
     std::vector<std::string> getSuggestions(std::string partialWord);
-    std::string searchPrefix(Node* node, std::string prefix, std::vector<std::string>* result);
+    void searchPrefix(Node* node, std::string prefix, std::vector<std::string>* result);
 };
 
 #endif
