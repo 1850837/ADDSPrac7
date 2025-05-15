@@ -13,7 +13,7 @@ class Autocomplete {
     public:
     Autocomplete();     //constructor
     Node* getRoot();
-    void insertKey(std::string word);
+    void insert(std::string word);
     std::vector<std::string> getSuggestions(std::string partialWord);
     void searchPrefix(Node* node, std::string prefix, std::vector<std::string>* result);
 };

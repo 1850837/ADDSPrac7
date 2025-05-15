@@ -9,7 +9,7 @@ Node* Autocomplete::getRoot(){
     return root;
 }
 
-void Autocomplete::insertKey(std::string word){
+void Autocomplete::insert(std::string word){
 
     Node* current = root;
 
