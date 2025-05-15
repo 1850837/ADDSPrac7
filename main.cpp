@@ -1,19 +1,17 @@
 #include <vector>
 #include <iostream>
 #include "Autocomplete.h"
+#include "PrefixMatcher.h"
 
 int main(){
 
-    Autocomplete a;
+    PrefixMatcher a;
 
-    a.insertKey("ad");
+    a.insert("11001100110", 4);
 
-    a.insertKey("advert");
+    a.insert("101", 6);
 
-    a.insertKey("advise");
-
-
-    a.getSuggestions("a");
+    a.selectRouter("1");
 
     return 0;
 
