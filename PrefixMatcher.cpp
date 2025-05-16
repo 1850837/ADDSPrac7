@@ -35,7 +35,25 @@ int PrefixMatcher::selectRouter(std::string networkAddress){
     std::vector<std::string>* rStr = &result;
     
     //getting array of matches
-    searchPrefix(current, "", rStr);
+    // searchPrefix(current, "", rStr);
+
+    int j = 0;
+    while (result.empty()){
+
+        searchPrefix(current, networkAddress.substr(0, j), rStr);
+
+        for (int i = 0; i < result.size(); i++){        //for every word in result
+            if(result[i] != networkAddress.substr(0, result[i].size())){
+                result.erase(result.begin() + i);
+            }
+        }
+
+        j++;
+
+        // if (j == networkAddress.length()) {
+        //     break;
+        // }
+    }
 
     //finding longest match
     int length = 0;

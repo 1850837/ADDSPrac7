@@ -7,11 +7,11 @@ int main(){
 
     PrefixMatcher b;
 
-    b.insert("1100", 4);
+    b.insert("01", 1);
 
-    b.insert("101", 6);
+    b.insert("0101", 2);
 
-    std::cout << b.selectRouter("110010") << "\n";
+    std::cout << b.selectRouter("010100110") << "\n";
 
     return 0;
 
