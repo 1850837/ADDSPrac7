@@ -15,14 +15,10 @@ void PrefixMatcher::insert(std::string address, int routerNumber){
         if (current->children.find(address[i]) == current->children.end()){   //while it can't find the current letter in the map
             current->children.insert({address[i], new Node()});
             current = current->children[address[i]];
-
-            std::cout << "Inserted " << address[i] << "\n";
         } 
         
         else {
             current = current->children[address[i]];
-            
-            std::cout << "Found " << address[i] << "\n";
         }
     }
 
@@ -39,37 +35,28 @@ int PrefixMatcher::selectRouter(std::string networkAddress){
     std::vector<std::string>* rStr = &result;
     
     //getting array of matches
-    searchPrefix(current, networkAddress, rStr);
+    searchPrefix(current, "", rStr);
 
     //finding longest match
     int length = 0;
-    int wordPos = 0;
-    for (int i = 0; i < result.size(); i++){
-        if (result[i].length() > length){
-            length = result[i].length();
-            wordPos = i;
+    std::string number = "";
+    for (int i = 0; i < result.size(); i++){        //for each router in the trie that matches the prefix
+        if (result[i].length() > length){           //if it is longer than the last one
+            length = result[i].length();            //save that length
+            number = result[i];                     //and save the word
         }
-    }
-
-    for (int i = 0; i < result.size(); i++){
-        std::cout << result[i] << "\n";
     }
 
     //finding router number associated
     current = root;
 
-    std::cout << "match = " << result[wordPos] << "\n";
-    std::cout << result[wordPos][0] << "\n";
-
     for (int i = 0; i < length; i++){
-        current = current->children[result[wordPos][i]];
-        std::cout << "Num currently is " << result[wordPos][i] << "\n";
-        std::cout << "Router currently is " << current->router << "\n";
+        current = current->children[number[i]];
     }
 
-    //int number = current->router;
+    int num = current->router;
 
-    return 0;
+    return num;
 
 }
 
