@@ -2,4 +2,5 @@
 
 Node::Node(){
     isEndOfWord = false;
+    router = -1;
 }

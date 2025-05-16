@@ -12,6 +12,7 @@ class Node {
     public:
     bool isEndOfWord;
     std::unordered_map<char, Node*> children;
+    int router;
 
     public:
     Node();

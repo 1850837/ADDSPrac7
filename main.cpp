@@ -5,13 +5,13 @@
 
 int main(){
 
-    PrefixMatcher a;
+    PrefixMatcher b;
 
-    a.insert("11001100110", 4);
+    b.insert("1100", 4);
 
-    a.insert("101", 6);
+    b.insert("101", 6);
 
-    a.selectRouter("1");
+    std::cout << b.selectRouter("110010") << "\n";
 
     return 0;
 

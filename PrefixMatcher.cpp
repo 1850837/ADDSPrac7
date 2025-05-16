@@ -10,20 +10,23 @@ void PrefixMatcher::insert(std::string address, int routerNumber){
 
     Node* current = root;
 
-    std::string fullAddress = address + std::to_string(routerNumber);       //so now router 2 would be 2110011011 or whatever
+    for (int i = 0; i < address.length(); i++){
 
-    for (int i = 0; i < fullAddress.length(); i++){
+        if (current->children.find(address[i]) == current->children.end()){   //while it can't find the current letter in the map
+            current->children.insert({address[i], new Node()});
+            current = current->children[address[i]];
 
-        if (current->children.find(fullAddress[i]) == current->children.end()){   //while it can't find the current letter in the map
-            current->children.insert({fullAddress[i], new Node()});
-            current = current->children[fullAddress[i]];
+            std::cout << "Inserted " << address[i] << "\n";
         } 
         
         else {
-            current = current->children[fullAddress[i]];
+            current = current->children[address[i]];
+            
+            std::cout << "Found " << address[i] << "\n";
         }
     }
 
+    current->router = routerNumber;
     current->isEndOfWord = true;
 
     return;
@@ -35,27 +38,38 @@ int PrefixMatcher::selectRouter(std::string networkAddress){
     std::vector<std::string> result = {};
     std::vector<std::string>* rStr = &result;
     
-    //traversing to the right branch
-    for (int i = 0; i < networkAddress.length(); i++){
-        current = current->children.find(networkAddress[i])->second;
-    }
-
+    //getting array of matches
     searchPrefix(current, networkAddress, rStr);
 
-    //find the longest one
+    //finding longest match
     int length = 0;
-    std::string word = "";
+    int wordPos = 0;
     for (int i = 0; i < result.size(); i++){
         if (result[i].length() > length){
             length = result[i].length();
-            word = result[i];
+            wordPos = i;
         }
     }
 
-    char num = word[word.length() - 1];
-    int number = num - '0';
+    for (int i = 0; i < result.size(); i++){
+        std::cout << result[i] << "\n";
+    }
 
-    return number;
+    //finding router number associated
+    current = root;
+
+    std::cout << "match = " << result[wordPos] << "\n";
+    std::cout << result[wordPos][0] << "\n";
+
+    for (int i = 0; i < length; i++){
+        current = current->children[result[wordPos][i]];
+        std::cout << "Num currently is " << result[wordPos][i] << "\n";
+        std::cout << "Router currently is " << current->router << "\n";
+    }
+
+    //int number = current->router;
+
+    return 0;
 
 }
 
